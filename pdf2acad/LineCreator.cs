@@ -29,10 +29,10 @@ namespace pdf2acad
             {
                 ContentShape contentshape = (ContentShape)shape;
                 Matrix newTransform = contentshape.Transform.CreateGdiMatrix();
+                //TODO: rotation depends on page orientation 
+                //have to work on matrix orientation to bring lines with a correct placement
                 newTransform.Rotate(180);
                 var tr = contentshape.Transform;
-                ////Matrix newTransform = tr.CreateGdiMatrix();
-               
                 newTransform.Multiply(transform, MatrixOrder.Append);
 
                 if (shape is TallComponents.PDF.Shapes.FreeHandShape)
@@ -91,18 +91,9 @@ namespace pdf2acad
                 }
                 else if (segment is FreeHandBezierSegment)
                 {
-                    //var s = (FreeHandBezierSegment)segment;
-                    //outStream.Write("C {0} {1} {2} ",
-                    //    writePoint(s.X1, s.Y1, transform),
-                    //    writePoint(s.X2, s.Y2, transform),
-                    //    writePoint(s.X3, s.Y3, transform));
+                    //Not sure if I want to bring it to CAD 
                 }
             }
-
-            //if (path.Closed)
-            //{
-            //    outStream.Write("Z ");
-            //}
         }
 
         private Point2d WritePoint(double x, double y, Matrix transform)
@@ -123,13 +114,5 @@ namespace pdf2acad
             foreach (var shape in shapes)
                 WriteShape(shape, transform);
         }
-
-        //private void writeImageShape(ImageShape image, Matrix transform)
-        //{
-        //    points.Add(WritePoint(0, 0, transform));
-        //    points.Add(WritePoint(0, 0 + image.Height, transform));
-        //    points.Add(WritePoint(0 + image.Width, 0 + image.Height, transform));
-        //    points.Add(WritePoint(0 + image.Width, 0, transform));
-        //}
     }
 }
