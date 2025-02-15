@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>pdf2acad.bundle\Contents\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,15 +34,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="accoremgd">
-      <HintPath>pdf2acad.DLL\AutoCAD\2024\accoremgd.dll</HintPath>
+      <HintPath>..\pdf2cad.DLL\AutoCAD\2024\accoremgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgd">
-      <HintPath>pdf2acad.DLL\AutoCAD\2024\acdbmgd.dll</HintPath>
+      <HintPath>..\pdf2cad.DLL\AutoCAD\2024\acdbmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acmgd">
-      <HintPath>pdf2acad.DLL\AutoCAD\2024\acmgd.dll</HintPath>
+      <HintPath>..\pdf2cad.DLL\AutoCAD\2024\acmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
@@ -83,12 +83,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Common.cs" />
-    <Compile Include="LineCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pdf2cad.Core\pdf2cad.Core.csproj">
+      <Project>{2C367C68-2E78-480F-A642-0EF36AFAE4EF}</Project>
+      <Name>pdf2cad.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SkiaSharp.1.68.2.1\build\net462\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.68.2.1\build\net462\SkiaSharp.targets')" />

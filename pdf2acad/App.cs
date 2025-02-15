@@ -1,5 +1,6 @@
 ﻿using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using pdf2cad.Core;
 using System.IO;
 using System.Windows.Forms;
 using TallComponents.PDF;
@@ -23,17 +24,41 @@ namespace pdf2acad
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var pdfBytes = File.ReadAllBytes(openFileDialog.FileName);
-
                 var pdfDocument = new Document(new MemoryStream(pdfBytes));
-                var page = pdfDocument.Pages[0];
+                var lineCreator = new LineCreator(pdfDocument);
+                var lines = lineCreator.GetPdfLines();
 
-                var viewerTransform = Common.GetViewerTransform(pdfDocument.Pages[0]);
-               
                 using (Transaction tr = db.TransactionManager.StartTransaction())
                 {
-                    LineCreator creator = new LineCreator(tr, db);
-                    var shapes = page.CreateShapes();
-                    creator.WriteShape(shapes, viewerTransform);
+                    var bt = tr.GetObject(db.BlockTableId, OpenMode.ForRead) as BlockTable;
+                    var btr = tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
+
+                    foreach (var line in lines)
+                    {
+                        Entity entity = null;
+
+                        if (line.LinePoints.Count == 2)
+                            entity = new Line()
+                            {
+                                StartPoint = new Autodesk.AutoCAD.Geometry.Point3d(line.LinePoints[0].X, line.LinePoints[0].Y, 0),
+                                EndPoint = new Autodesk.AutoCAD.Geometry.Point3d(line.LinePoints[1].X, line.LinePoints[1].Y, 0)
+                            };
+
+                        if (line.LinePoints.Count > 2)
+                        {
+                            Polyline polyline = new Polyline();
+                            for (int i = 0; i < line.LinePoints.Count; i++)
+                                polyline.AddVertexAt(i, new Autodesk.AutoCAD.Geometry.Point2d(line.LinePoints[i].X, line.LinePoints[i].Y), 0, 0, 0);
+                            entity = polyline;
+                        }
+
+                        if (entity != null)
+                        {
+                            btr.AppendEntity(entity);
+                            tr.AddNewlyCreatedDBObject(entity, true);
+                        }
+                    }
+
                     tr.Commit();
                 }
             }

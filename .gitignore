@@ -6,3 +6,5 @@ obj/
 *.user
 *.csproj.user
 packages/
+pdf2acad.bundle/
+pdf2revit.bundle/
