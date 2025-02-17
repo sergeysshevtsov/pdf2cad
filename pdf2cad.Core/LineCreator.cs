@@ -20,6 +20,10 @@ namespace pdf2cad.Core
             var result = new List<LineData>();
             var page = document.Pages[0];
 
+            //getting page with and height for Revit cropbox and AutoCAD border
+            double viewerWidth = page.Orientation == Orientation.Rotate0 || page.Orientation == Orientation.Rotate180 ? page.Width : page.Height;
+            double viewerHeight = page.Orientation == Orientation.Rotate0 || page.Orientation == Orientation.Rotate180 ? page.Height : page.Width;
+
             WriteShape(result, page.CreateShapes(), Common.GetViewerTransform(page));
 
             return result;
@@ -34,10 +38,6 @@ namespace pdf2cad.Core
             {
                 ContentShape contentshape = (ContentShape)shape;
                 Matrix newTransform = contentshape.Transform.CreateGdiMatrix();
-                //TODO: rotation depends on page orientation 
-                //have to work on matrix orientation to bring lines with a correct placement
-                newTransform.Rotate(180);
-                var tr = contentshape.Transform;
                 newTransform.Multiply(transform, MatrixOrder.Append);
 
                 if (shape is TallComponents.PDF.Shapes.FreeHandShape)
