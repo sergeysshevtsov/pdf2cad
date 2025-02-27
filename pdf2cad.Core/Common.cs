@@ -44,8 +44,9 @@ namespace pdf2cad.Core
             Matrix matrix = new Matrix();
 
             // From PDF coordinate system (zero is at the bottom) to screen (zero is at the top)
-            matrix.Translate(0, (float)height);
-            matrix.Scale(1, -1);
+            // for SVG file creation
+            //matrix.Translate(0, (float)height);
+            //matrix.Scale(1, -1);
 
             // Rotation
             matrix.Rotate(rotate);

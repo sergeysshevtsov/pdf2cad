@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using TallComponents.PDF;
@@ -9,7 +10,7 @@ namespace pdf2cad.Core
     public class LineCreator
     {
         private readonly Document document;
-
+        private double width, height = 0;
         public LineCreator(Document document)
         {
             this.document = document;
@@ -21,13 +22,15 @@ namespace pdf2cad.Core
             var page = document.Pages[0];
 
             //getting page with and height for Revit cropbox and AutoCAD border
-            double viewerWidth = page.Orientation == Orientation.Rotate0 || page.Orientation == Orientation.Rotate180 ? page.Width : page.Height;
-            double viewerHeight = page.Orientation == Orientation.Rotate0 || page.Orientation == Orientation.Rotate180 ? page.Height : page.Width;
+            width = page.Orientation == Orientation.Rotate0 || page.Orientation == Orientation.Rotate180 ? page.Width : page.Height;
+            height = page.Orientation == Orientation.Rotate0 || page.Orientation == Orientation.Rotate180 ? page.Height : page.Width;
 
             WriteShape(result, page.CreateShapes(), Common.GetViewerTransform(page));
 
             return result;
         }
+
+        public Tuple<double, double> GetWidthAndHeight() => Tuple.Create(width, height);
 
         private void WriteShape(List<LineData> linesList, Shape shape, Matrix transform)
         {
@@ -38,7 +41,9 @@ namespace pdf2cad.Core
             {
                 ContentShape contentshape = (ContentShape)shape;
                 Matrix newTransform = contentshape.Transform.CreateGdiMatrix();
+               
                 newTransform.Multiply(transform, MatrixOrder.Append);
+                
 
                 if (shape is TallComponents.PDF.Shapes.FreeHandShape)
                 {
