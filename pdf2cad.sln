@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pdf2revit", "pdf2revit\pdf2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pdf2cad.Core", "pdf2cad.Core\pdf2cad.Core.csproj", "{2C367C68-2E78-480F-A642-0EF36AFAE4EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pdf2svg", "pdf2svg\pdf2svg.csproj", "{946304A1-A887-4E44-A02E-C0446CF82723}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2C367C68-2E78-480F-A642-0EF36AFAE4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C367C68-2E78-480F-A642-0EF36AFAE4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C367C68-2E78-480F-A642-0EF36AFAE4EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{946304A1-A887-4E44-A02E-C0446CF82723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{946304A1-A887-4E44-A02E-C0446CF82723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{946304A1-A887-4E44-A02E-C0446CF82723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{946304A1-A887-4E44-A02E-C0446CF82723}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

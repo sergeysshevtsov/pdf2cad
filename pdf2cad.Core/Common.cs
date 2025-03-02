@@ -4,7 +4,7 @@ namespace pdf2cad.Core
 {
     internal class Common
     {
-        public static Matrix GetViewerTransform(TallComponents.PDF.Page page)
+        public static Matrix GetViewerTransform(TallComponents.PDF.Page page, bool isSvg = false)
         {
             var mediaBox = page.MediaBox;
 
@@ -45,8 +45,11 @@ namespace pdf2cad.Core
 
             // From PDF coordinate system (zero is at the bottom) to screen (zero is at the top)
             // for SVG file creation
-            //matrix.Translate(0, (float)height);
-            //matrix.Scale(1, -1);
+            if (isSvg)
+            {
+                matrix.Translate(0, (float)height);
+                matrix.Scale(1, -1);
+            }
 
             // Rotation
             matrix.Rotate(rotate);

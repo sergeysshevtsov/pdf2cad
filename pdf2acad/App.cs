@@ -25,7 +25,7 @@ namespace pdf2acad
             {
                 var pdfBytes = File.ReadAllBytes(openFileDialog.FileName);
                 var pdfDocument = new Document(new MemoryStream(pdfBytes));
-                var lineCreator = new LineCreator(pdfDocument);
+                var lineCreator = new LineCreator(pdfDocument, null);
                 var lines = lineCreator.GetPdfLines();
 
                 using (Transaction tr = db.TransactionManager.StartTransaction())

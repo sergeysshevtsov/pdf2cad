@@ -1,15 +1,10 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.ExtensibleStorage;
 using Autodesk.Revit.UI;
 using pdf2cad.Core;
 using pdf2revit.RevitService;
-using System;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Windows.Forms;
-using TallComponents.PDF.Annotations.Markups;
 
 namespace pdf2revit.AppCommands
 {
@@ -30,7 +25,7 @@ namespace pdf2revit.AppCommands
             {
                 var pdfBytes = File.ReadAllBytes(openFileDialog.FileName);
                 var pdfDocument = new TallComponents.PDF.Document(new MemoryStream(pdfBytes));
-                var lineCreator = new LineCreator(pdfDocument);
+                var lineCreator = new LineCreator(pdfDocument, null);
                 var lines = lineCreator.GetPdfLines();
 
                 var document = commandData.Application.ActiveUIDocument.Document;
