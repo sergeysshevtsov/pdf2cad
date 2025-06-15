@@ -1,4 +1,5 @@
 Tool that allows to convert vectorized PDF to any type of lines.
+How to use: https://www.youtube.com/shorts/QC458WXQwFw
 
 Convert PDF to modellines in Revit
 
