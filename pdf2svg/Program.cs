@@ -10,7 +10,7 @@ namespace pdf2svg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Processing PDF file...");
             var pdfBytes = File.ReadAllBytes("file.pdf");
             var pdfDocument = new Document(new MemoryStream(pdfBytes));
             
@@ -23,6 +23,9 @@ namespace pdf2svg
                     lineCreator.CreateSvg();
                 }
             }
+
+            Console.WriteLine("SVG file created successfully as 'file.html'.");
+            Console.ReadKey();
         }
     }
 }

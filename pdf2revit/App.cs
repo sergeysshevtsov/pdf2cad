@@ -24,14 +24,19 @@ namespace pdf2revit
                 var assemblyPath = Assembly.GetExecutingAssembly().Location;
                 var resourceString = "pack://application:,,,/pdf2revit;component/Resources/Images/Ribbon/";
                 var rb = GetRibbonPanel(application, "pdf2revit", tabname);
-                //Add ribbon button wall creation
                 rb.AddItem(
                     new PushButtonData("cmdPDFToLines", "PDF\nTo lines", assemblyPath, "pdf2revit.AppCommands.CmdPDFToLines")
                     {
                         ToolTip = "Export PDF to model lines",
                         LargeImage = new BitmapImage(new Uri(string.Concat(resourceString, "32x32/PDFToLines.png")))
                     });
-               
+                rb.AddItem(
+                    new PushButtonData("cmdDWGToLines", "DWG\nTo lines", assemblyPath, "pdf2revit.AppCommands.CmdDWGToLines")
+                    {
+                        ToolTip = "Export DWG to model lines",
+                        LargeImage = new BitmapImage(new Uri(string.Concat(resourceString, "32x32/DWGToLines.png")))
+                    });
+
             }
             catch
             {

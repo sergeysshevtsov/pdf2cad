@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="AppCommands\CmdDWGToLines.cs" />
     <Compile Include="AppCommands\CmdPDFToLines.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RevitService\ModelLineService.cs" />
@@ -80,6 +81,9 @@
       <Project>{2C367C68-2E78-480F-A642-0EF36AFAE4EF}</Project>
       <Name>pdf2cad.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Ribbon\32x32\DWGToLines.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
